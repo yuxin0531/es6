@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 暂时性死区(必须在声明变量后才能使用变量,没有变量提升)
+
+        // 只要块级作用域内存在let命令，它所声明的变量就“绑定”（binding）这个区域，不再受外部的影响。
+        var tmp  = 123;
+        if(true){
+            tmp ="abc";
+            let tmp;//tmp is not defined 报错原因:变量声明前使用
+            console.log(tmp);
+        }
+        // 上面代码中，存在全局变量tmp，但是块级作用域内let又声明了一个局部变量tmp，导致后者绑定这个块级作用域，所以在let声明变量前，对tmp赋值会报错。
+        // ES6 明确规定，如果区块中存在let和const命令，这个区块对这些命令声明的变量，从一开始就形成了封闭作用域。凡是在声明之前就使用这些变量，就会报错.
+        // 总结:在用let声明变量的时候,不管在哪里一定要在let声明该变量之后才可以使用.使用let命令声明变量之前，该变量都是不可用的。这在语法上，称为“暂时性死区”
+        var tmp  = 123;
+        if(true){
+            tmp ="abc";
+            var tmp;
+            console.log(tmp);//abc
+        }
+
+
+        
+        // 在let命令声明变量tmp之前，都属于变量tmp的“死区”。
+        if(true){
+            tmp= "abc";//tmp is not defined
+            console.log(tmp);
+
+            // 上部分为在let声明之前使用了变量所有为暂时性死区
+            let tmp;
+            console.log(tmp);//undefined
+
+            tmp = 123;
+            console.log(tmp);//123
+            
+        }
+
+
+
+        // “暂时性死区”也意味着typeof不再是一个百分之百安全的操作。
+        typeof x; //x is not defined
+        let x;
+
+        // 如果该变量没有用let声明,反而typeof不会报错
+        console.log(typeof undeclared_variable);//undefined
+
+
+
+
+        // // 隐蔽的暂时性死区
+        // function bar(x=y,y=2){
+        //     return [x,y];
+        // }
+        bar() //y is not defined
+        // 上面代码中，调用bar函数之所以报错（某些实现可能不报错），是因为参数x默认值等于另一个参数y，而此时y还没有声明，属于“死区”。
+
+        function test(x=2,y=x){
+            return [x, y];
+        }
+        test()//[2,2]
+        // 如果y的默认值是x，就不会报错，因为此时x已经声明了。
+
+        var x= x//不报错
+        let y = y //报错 y is not defined
+        // 在变量x的声明语句还没有执行完成前，就去取x的值，导致报错”x 未定义“。
+
+        // ES6 规定暂时性死区和let、const语句不出现变量提升，主要是为了减少运行时错误，防止在变量声明前就使用这个变量，从而导致意料之外的行为。
+        // 这样的错误在 ES5 是很常见的，现在有了这种规定，避免此类错误就很容易了。
+        // 总之，暂时性死区的本质就是，只要一进入当前作用域，所要使用的变量就已经存在了，但是不可获取，只有等到声明变量的那一行代码出现，才可以获取和使用该变量。
+    </script>
+</body>
+</html>

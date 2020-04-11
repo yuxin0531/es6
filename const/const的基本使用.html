@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 基本用法(1.与let不同的地方在于一旦声明赋值,不可改变 2.声明后必须赋值)
+
+        // const声明一个只读的常量。一旦声明，常量的值就不能改变。
+        const PI = 3.1415;
+        console.log(PI);//3.1415
+        PI = 3;
+        console.log(PI);//报错:Assignment to constant variable.赋值给常变量。
+        // ！！！！！const声明的变量不得改变值，这意味着，const一旦声明变量，就必须立即初始化，不能留到以后赋值。
+
+
+
+        const foo//Missing initializer in const declaration 在const声明中缺少初始化的值
+        // !!!!上面代码表示，对于const来说，只声明不赋值，就会报错。
+
+
+
+        // const的作用域与let命令相同：只在声明所在的块级作用域内有效。
+        if(true){
+            const MAX =5;
+        }
+        console.log(MAX);//MAX is not defined
+        
+
+
+        // const命令声明的常量也是不提升，同样存在暂时性死区，只能在声明的位置后面使用。
+        if(true){
+            console.log(MIX);//MIX is not defined
+            const MIX =5;
+        }
+
+
+
+        // const声明的常量，也与let一样不可重复声明。(不能被重复声明页不能重复声明别人)
+        var message =" Hello!";
+        let age = 25;
+
+        const message ="Goodbye!"//Identifier 'message' has already been declared
+        // const age = 30;  //Identifier 'age' has already been declared
+    </script>
+</body>
+</html>

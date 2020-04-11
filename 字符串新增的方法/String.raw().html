@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // ES6 还为原生的 String 对象，提供了一个raw()方法。
+        // 该方法返回一个斜杠都被转义（即斜杠前面再加一个斜杠）的字符串，往往用于模板字符串的处理方法。
+        console.log(`Hi\n${2+3}!`);//Hi换行5!
+        console.log(String.raw`Hi\n${2+3}!`);// 实际返回 "Hi\\n5!"，显示的是转义后的结果 "Hi\n5!"
+        console.log(`Hi\u000A!`);//Hi换行!
+        console.log(String.raw`Hi\u000A!`);// 实际返回 "Hi\\u000A!"，显示的是转义后的结果 "Hi\u000A!"
+        // 如果原字符串的斜杠已经转义，那么String.raw()会进行再次转义。
+        console.log(String.raw`Hi\\n`);// 官方:返回 "Hi\\\\n";chrome浏览器Hi\\n
+        console.log(String.raw`Hi\\n`==="Hi\\\\n");//true
+        // String.raw()方法可以作为处理模板字符串的基本方法，它会将所有变量替换，
+        // 而且对斜杠进行转义，方便下一步作为字符串来使用。
+
+
+
+        // String.raw()本质上是一个正常的函数，只是专用于模板字符串的标签函数。
+        // 如果写成正常函数的形式，它的第一个参数，应该是一个具有raw属性的对象，
+        // 且raw属性的值应该是一个数组，对应模板字符串解析后的值。
+        console.log(String.raw({raw:['foo','bar','bbb','hhh']},1+2,2+3,3+4));//foo3bar与`foo${1+2}bar`等同 //foo3bar6bbb9hhh
+        // 上面代码中，String.raw()方法的第一个参数是一个对象，它的raw属性等同于原始的模板字符串解析后得到的数组。
+        const strings = {raw:['foo','bar','bbb','hhh']};
+        const valuse = [1+2,2+3,3+4]
+
+        // 作为函数，String.raw()的代码实现基本如下。
+        String.raw = function(strings,valuse) {
+            let output ="";
+            let index;
+            for(index=0;index<valuse.length;index++){
+                output += strings.raw[index]+valuse[index];
+            }
+            output += strings.raw[index]
+            return output;
+        }
+        console.log(String.raw(strings,valuse));
+        
+    </script>
+</body>
+</html>

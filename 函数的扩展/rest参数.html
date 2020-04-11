@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // rest 参数
+        // !!!!!ES6 引入 rest 参数（形式为...变量名），用于获取函数的多余参数，这样就不需要使用arguments对象了。
+        // rest 参数搭配的变量是一个数组，该变量将多余的参数放入数组中。
+        // ...value接收无限参数
+        function add(...values) {
+            let sum = 0;
+            for (var val of values) {
+                sum += val;
+            }
+            return sum;
+        }
+        console.log(add(2, 5, 3));
+        // 上面代码的add函数是一个求和函数，利用 rest 参数，可以向该函数传入任意数目的参数。
+
+        // 下面是一个 rest 参数代替arguments变量的例子。
+        function sortNumbers(a, b, c, d) {
+            // arguments 是一个具有length键值对的对象
+            // 例如:let obj = {
+            //     0: 43,
+            //     1: 34,
+            //     2: 21,
+            //     3: 56,
+            //     4: 52,
+            //     5: 53,
+            //     length: 6
+            // }
+            // console.log(Array.prototype.slice.call(arguments));//!!!!Array.prototype.slice.call(arguments)能将具有length属性的对象转成数组
+            // return console.log(Array.prototype.slice.call(arguments).sort());
+            //slice() 方法可从已有的数组中返回选定的元素。返回一个新的数组，
+            // 包含从 start开始截取(必须) 到 end 结束截取()可选（不包括该元素）的 arrayObject 中的元素。
+
+
+            // call和apply作用是一样的，都是为了改变某个函数运行时的上下文（context）而存在的，换句话说，就是为了改变函数体内部this的指向。
+            // call,apply例子 call() 方法可接受参数：
+            // 下面例子使用person的方法来调用person1的属性
+            // call() 方法分别接受参数。
+            // apply() 方法接受数组形式的参数。
+            var person = {
+                fullName: function (city, country) {
+                    return this.firstName + " " + this.lastName + "," + city + "," + country;
+                }
+            }
+            var person1 = {
+                firstName: "Bill",
+                lastName: "Gates"
+            }
+            person.fullName.call(person1, "Seattle", "USA");
+            // 结果:Bill Gates,Seatle,USA
+            console.log(person.fullName.apply(person1, ["Seattle", "USA"]));
+            // 结果:Bill Gates,Seatle,USA
+
+
+            // sort() 方法用于对数组的元素进行排序。
+            // 排序顺序可以是字母或数字，并按升序或降序。
+            // 默认排序顺序为按字母,数字升序。
+            var points = [40, 100, 1, 5, 25, 10];
+            points.sort(function (a, b) { return a - b });
+            // 结果:1,5,10,25,40,100
+            var points = [40, 100, 1, 5, 25, 10];
+            points.sort(function (a, b) { return b - a });
+            // 结果: 100,40,25,10,5,1
+            var fruits = ["Banana", "Orange", "Apple", "Mango"];
+            fruits.sort();
+            // 结果:Apple,Banana,Mango,Orange
+
+        }
+        sortNumbers(2, 1, 4, 5, 7)
+        // rest参数
+        const sortNumbers = (...numbers) => numberd.sort()
+        // 上面代码的两种写法，比较后可以发现，rest 参数的写法更自然也更简洁。
+        // arguments对象不是数组，而是一个类似数组的对象。所以为了使用数组的方法，
+        // 必须使用Array.prototype.slice.call先将其转为数组。
+
+        // rest 参数就不存在这个问题，它就是一个真正的数组，数组特有的方法都可以使用。下面是一个利用 rest 参数改写数组push方法的例子。
+        function push(array, ...items) {
+            items.forEach(function(item){
+                array.push(item);
+                console.log(item);
+                console.log(array);
+            });
+            // array.forEach(function(cu{rrentValue必需。当前元素, index可选。当前元素的索引值。, arr可选。当前元素所属的数组对象。), thisValue可选。传递给函数的值一般用 "this" 值。
+            //如果这个参数为空， "undefined" 会传递给 "this" 值)
+        }
+        var a  = [];
+        push(a,1,2,3)//除了传递参数a以外不能再传递其他参数,否则会报错
+
+        // !!!!!注意，rest 参数之后不能再有其他参数（即只能是最后一个参数），否则会报错(不能传变量)。
+        // 报错c is not defined
+        function f(a,...b,c){
+            //...
+        }
+
+        // 函数的length属性，不包括 rest 参数。(length属性只会计算除了...a这样形式的剩余参数以外的其他参数的长度)
+        (function(a){}).length//1
+        (function(...a){}).length//0
+        (function(a,...b){}).length//1
+    </script>
+</body>
+
+</html>

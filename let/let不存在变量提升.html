@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    // let不存在变量提升
+    // var声明的变量能在声明之前使用let不行,必须在声明之后才可以使用
+
+    // var声明情况
+    console.log(a);//undefined
+    var a =3 
+    // 上面的情况相当于var a => console.log(a)//undefined => a=3
+    console.log(a);//3
+
+    // let
+    // console.log(b);//b is not defined
+    let b = 1 
+    console.log(b);//1
+
+
+    </script>
+</body>
+</html>

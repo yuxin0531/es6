@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Array.prototype.slice.call(obj)Array.prototype.slice.call(arguments)能将具有length属性的对象转成数组,可用于函数的实参列表arguments
+        let obj = {
+            0: 43,
+            1: 34,
+            2: 21,
+            3: 56,
+            4: 52,
+            5: 53,
+            length: 6
+        }
+        console.log(obj);
+        console.log(Array.prototype.slice.call(obj));//[43, 34, 21, 56, 52, 53]
+    </script>
+</body>
+
+</html>

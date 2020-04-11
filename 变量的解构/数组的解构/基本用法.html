@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 基本用法
+        // 以前，为变量赋值，只能直接指定值。
+        // let a = 1;
+        // let b = 2;
+        // let c = 3;
+
+        // ES6 允许按照一定模式，从数组和对象中提取值，对变量进行赋值，这被称为解构
+        // let [a, b, c] = [1, 2, 3];
+        // console.log(a, b, c);//1 2 3
+        // // !!!!!!!这种写法属于“模式匹配”，只要等号两边的模式相同，左边的变量就会被赋予对应的值。
+
+        // // !!!!嵌套数组的解构
+        // // let [foo,[[bar],baz]] = [1,[[2],3]];
+        // // console.log(foo,bar,baz); //1 2 3
+
+        let [, , third] = ['foo', 'bar', 'baz'];
+        console.log(third);
+
+        // let [x,,y] =[1,2,3];
+        // console.log(x,y);//1,3
+
+        let [head, ...tail] = [1, 2, 3, 4];
+        console.log(head);//1
+        console.log(tail);[1, 2, 3]
+        // ...tail相当于把剩下的值的数组赋予给它
+
+        let [x, y, ...z] = ['a'];
+        console.log(x);//'a'
+        console.log(y);//undefined 如果解构没有值就为undefined
+        console.log(z);//[]
+
+        let [foo] = [];//undefined
+        let [bar, foo] = [1];//undefined
+        // // foo的值都会等于undefined。
+
+
+
+        // 另一种情况是不完全解构，即等号左边的模式，只匹配一部分的等号右边的数组。这种情况下，解构依然可以成功。
+        let [x, y] = [1, 2, 3];
+        console.log(x);//1
+        console.log(y);//2
+
+        let [a, [b], d] = [1, [2, 3], 4]
+        console.log(a);
+        console.log(b);
+        console.log(d);
+
+        // 如果等号的右边不是数组（或者严格地说，不是可遍历的结构，参见《Iterator》一章），那么将会报错。
+        
+        // 下面的情况会报错
+        let [foo] =1;
+        let [foo] =false;
+        let [foo] =NaN;
+        let [foo] =undefined;
+        let [foo] =null;
+        let [foo] ={};
+        //所赋的值 is not iterable 例如:let [foo] =1; 报错:1 is not iterable
+        // 总结:变量如果数量比赋值的数量多,多出来的就会赋值失败值为undefined,变量少于赋值的数量依旧可以按模式匹配成功
+
+        let [x,y,z] = new Set(['a','b','c']);
+        console.log(x);//a
+        console.log(y);//b
+        console.log(z);//c
+        
+        // 具有Iterator(迭代)都可以解构
+        // ES6中定义了一种新的函数.用function*定义生成器函数,这种函数会返回一个generator对象.
+        // 生成器函数在执行时可以暂停，然后又可以在暂停处接着执行。
+        // 参考:https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/function*
+        function* fibs(){
+            let a = 0;
+            let b = 1;
+            while(true){
+                yield a;
+                [a,b] = [b,a+b];
+            }
+        }
+        let [first, second, third, fourth, fifth, sixth] = fibs();
+        console.log(first);//0
+        console.log(second);//1
+        console.log(third);//1
+        console.log(fifth);//3
+        console.log(sixth);//5
+    </script>
+</body>
+
+</html>

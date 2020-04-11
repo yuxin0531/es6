@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // round() 方法可把一个数字舍入为最接近的整数。
+        // 注意： 2.49 将舍入2, 2.5 将舍入 3。
+        // 语法:Math.round(x)
+        var a=Math.round(2.60);//3
+        var b = Math.round(2.50);//3
+        var c = Math.round(2.49);//2
+        var d=Math.round(-2.60);//-3
+        // 注意一下负数的小数位数为5的时候也是舍去的
+        var e = Math.round(-2.50);//-2
+        console.log(e);
+        var f = Math.round(-2.49);//-2
+    </script>
+</body>
+
+</html>

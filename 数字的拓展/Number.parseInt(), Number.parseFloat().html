@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Number.parseInt(), Number.parseFloat()
+        // !!!ES6 将全局方法parseInt()和parseFloat()，移植到Number对象上面，行为完全保持不变。
+        // !!!这样做的目的,是逐步减少全局方法,使得语言逐步模块化.
+        // ES5写法
+        //parseInt将字符串转换为数字并舍弃小数,遇到非数字的自动停止转换返回非数字前面的数字
+        console.log(parseInt('12.9'));//12
+        // parseFloat()将字符串装换为数字,保留小数.遇到非数字的自动停止转换返回非数字前面的数字
+        console.log(parseFloat('123.45#'));//123.45
+        // 与parseInt,parseFloat()一致
+        console.log(Number.parseInt('12.34'));//12
+        console.log(Number.parseFloat('123.45#'));//123.45
+        
+        console.log(Number.parseInt === parseInt);//true
+        console.log(Number.parseFloat === parseFloat);//true
+        
+        
+    </script>
+</body>
+</html>

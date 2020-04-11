@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const obj1 = {};
+        const obj2 = { foo: 'bar' };
+        Object.setPrototypeOf(obj1, obj2);
+        const { foo } = obj1;
+        console.log(foo);//bar
+        // !!!!!上面代码中，对象obj1的原型对象是obj2。foo属性不是obj1自身的属性，而是继承自obj2的属性，解构赋值可以取到这个属性。
+
+        var { x = 3 } = {};
+        console.log(x);//3
+        var { x, y = 5 } = { x: 1 };
+        console.log(x);//1
+        console.log(y);//5
+        var { x: y = 3 } = {};
+        console.log(y);//3
+        var { x: y = 3 } = { x: 5 };
+        console.log(y);//5
+        var { message: msg = 'Something went wrong' } = {};
+        console.log(msg);//'Something went wrong'
+
+
+        // 默认生效的条件是,对象的属性值等于严格模式的undefined,null不严格等于undefined
+        var { x=3} = {x:undefined};
+        console.log(x);//3
+        var {x=3} = {x:null};
+        console.log(x);//null
+        
+    </script>
+</body>
+
+</html>

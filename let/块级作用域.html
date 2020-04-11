@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 块级作用域
+        // 参考链接:https://www.cnblogs.com/aisowe/p/11553398.html
+    // 块级作用域
+        // 条件语句
+        // if () { }
+
+        // // switch语句
+        // switch () { }
+
+        // // for / while循环语句
+        // for () { }
+        // while () { }
+
+        // // try...catch语句
+        // try () catch (err) { }
+
+        // // 单大括号
+        // { }
+        // 对象的大括号内不是一个块级作用域, 因为它里面不能直接声明变量; 是不是可以理解为不能在里面声明变量就不是块级作用域
+
+
+        // 为什么需要块级作用域?
+        // ES5 只有全局作用域和函数作用域，没有块级作用域，这带来很多不合理的场景。
+        // 第一种场景，内层变量可能会覆盖外层变量。
+        var tmp = new Date();
+        function f() {
+            console.log(tmp);
+            if (false) {
+                var tmp = 'hello world';
+            }
+        }
+        f()//undefined
+        // 原因:
+        var tmp = new Date();
+        function f() {
+            var tmp
+            console.log(tmp);
+            if (false) {
+                tmp = 'hello world';
+            }
+        }
+        f()//undefined
+        // 上面代码的原意是，if代码块的外部使用外层的tmp变量，内部使用内层的tmp变量。
+        // 但是，函数f执行后，输出结果为undefined，原因在于变量提升，导致内层的tmp变量覆盖了外层的tmp变量。
+
+
+
+        // 第二种场景，用来计数的循环变量泄露为全局变量。
+        var s = 'hello';
+        for (var i = 0; i < s.length; i++) {
+            console.log(s[i]);
+        }
+        console.log(i); // 5
+        // 上面代码中，变量i只用来控制循环，但是循环结束后，它并没有消失，泄露成了全局变量。
+        // let声明有块级作用域
+        var s = 'hello';
+        for (let i = 0; i < s.length; i++) {
+            console.log(s[i]);
+        }
+        console.log(i); //i is not defined
+
+
+
+        // ES6 的块级作用域
+        // 有块级作用域的两种情况
+        // 第一种
+        function f1() {
+            let n = 5;
+            if (true) {
+                let n = 10;
+            }
+            console.log(n);
+        }
+        f1()//5
+        // 第二种
+        function f1() {
+            var n = 5;
+            if (true) {
+                let n = 10;
+            }
+            console.log(n);
+        }
+        f1()//5
+
+
+        // 如果没有块级作用域的情况下两种情况
+        // 第一种
+        function f1() {
+            let n = 5;
+            if (true) {
+                var n = 10;
+            }
+            console.log(n);
+        }
+        f1()//Identifier 'n' has already been declared //n变量已经存在
+
+        // 第二种
+        function f1() {
+            var n = 5;
+            if (true) {
+                var n = 10;
+            }
+            console.log(n);
+        }
+        f1()//10
+
+
+
+        // ES6 允许块级作用域的任意嵌套。
+        {
+            {
+                {
+                    {
+                        { let insane = 'Hello World' }
+                        // 不属于同一作用域
+                        console.log(insane); // 报错 insane is not defined
+                    }
+                }
+            }
+        };
+        // 上面代码使用了一个五层的块级作用域，每一层都是一个单独的作用域。第四层作用域无法读取第五层作用域的内部变量。
+
+        {
+            {
+                {
+                    {
+                        let insane = 'Hello World';
+                        { let insane = 'Hello World' }//不报错
+                    }
+                }
+            }
+        };
+        // 内层作用域可以定义外层作用域的同名变量。
+
+
+
+        // 不懂要表达声明意思
+        // 块级作用域的出现，实际上使得获得广泛应用的匿名立即执行函数表达式
+        // （匿名 IIFE( Immediately Invoked Function Expression，意为立即调用的函数表达式，也就是说，声明函数的同时立即调用这个函数。)）不再必要了。
+
+        (function () {
+            var a = 3
+        }());
+
+        // 块级作用域写法
+        {
+            let tmp = 3
+        }
+    </script>
+</body>
+
+</html>

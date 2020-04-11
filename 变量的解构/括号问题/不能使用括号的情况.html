@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 不能使用圆括号的情况
+        // 1.变量声明语句
+        // let [(a)]=[1];
+        // let {x:(c)} ={};
+        // let ({x:c})={};
+        // let {(x:c)}={};
+        // let {(x):c}={};
+        // let {o:({p:p})}={o:{p:2}};
+        // 上面 6 个语句都会报错，因为它们都是变量声明语句，模式不能使用圆括号。
+
+
+        // 2.函数参数
+        // // 报错
+        // function f([(z)]) { return z; }
+        // // 报错
+        // function f([z,(x)]) { return x; }
+        // 函数参数也属于变量声明，因此不能带有圆括号。
+
+        //3.赋值语句的模式
+        // ({p:a})={p:42};//Unexpected token
+        // ([a])=[5];//Unexpected token
+        // // 上面代码将整个模式放在圆括号之中，导致报错。
+
+        [({ p: a }), { x: c }] = [{}, {}];//Unexpected token
+        // 上面代码将一部分模式放在圆括号之中，导致报错。
+    </script>
+</body>
+
+</html>

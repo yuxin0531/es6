@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // let和const声明底的变量拥有块级作用域,变量只能在代码块内有效
+        {
+            let a = 10;
+            const b = 1;
+            var c = 30
+        }
+        // console.log(a);//a  is not defined
+        // console.log(b);//b is not defined
+        // console.log(c);//30
+
+
+
+
+        // for循环内使用let声明变量,变量只会在for循环代码块中生效,在外部使用会,这是非常好用的
+        var d = []
+        for (let i = 0; i < 10; i++) {
+            // console.log(i);//1,2,3,4,5,6,7,8,9
+            d[i] = function () {
+                console.log(i);
+            };
+            d[i]();//1,2,3,4,5,6,7,8,9
+        }
+        // console.log(i);//i is not defined
+        d[6]()//6
+        // 上面代码中，变量i是let声明的，当前的i只在本轮循环有效，所以每一次循环的i其实都是一个新的变量，
+        // 所以最后输出的是6。你可能会问，如果每一轮循环的变量i都是重新声明的，那它怎么知道上一轮循环的值，
+        // 从而计算出本轮循环的值？这是因为 JavaScript 引擎内部会记住上一轮循环的值，初始化本轮的变量i时，就在上一轮循环的基础上进行计算。
+        // for循环使用var声明变量,变量会是一个全局变量.结果是循环后的结果.
+        var c = [];
+        for (var b = 0; b < 10; b++) {
+            // console.log(b);//1,2,3,4,5,6,7,8,9
+            c[b] = function () {
+                console.log(b);
+            };
+            c[b]();//1,2,3,4,5,6,7,8,9
+        }
+        // console.log(b);//10
+        c[6]();//10
+        // 所以在循环中使用变量使用let会比较好,const不行,因为const声明的变量不允许被修改
+
+
+
+
+        // 另外，for循环还有一个特别之处，就是设置循环变量的那部分是一个父作用域，而循环体内部是一个单独的子作用域。
+        for(let i=0; i<3; i++){
+            let i ="abc"
+            console.log(i);//abc *3
+        }
+        // 如果是var声明的i的值会被修改为abc所有执行一次后结束,值输出abc
+        for(var i=0; i<3; i++){
+            var i ="abc"
+            console.log(i);//abc
+        }
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        [(b)]=[3];
+        ({p:(d)}={});
+        [(parseInt.prop)]=[3];
+        // 上面三行语句都可以正确执行，因为首先它们都是赋值语句，而不是声明语句；
+        // 其次它们的圆括号都不属于模式的一部分。第一行语句中，模式是取数组的第一个成员，跟圆括号无关；
+        // 第二行语句中，模式是p，而不是d；第三行语句与第一行语句的性质一致。
+    </script>
+</body>
+</html>

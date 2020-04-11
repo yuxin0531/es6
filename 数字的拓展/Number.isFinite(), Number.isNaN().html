@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Number.isFinite(), Number.isNaN() 
+        // ES6 在Number对象上，新提供了Number.isFinite()和Number.isNaN()两个方法。
+        // Number.isFinite()用来检查一个数值是否为有限的（finite），即不是Infinity。
+        console.log(Number.isFinite(15));//true
+        console.log(Number.isFinite(0.8));//true
+        console.log(Number.isFinite(NaN));//false
+        console.log(Number.isFinite(Infinity));//false
+        console.log(Number.isFinite(-Infinity));//false
+        // 注意，如果参数类型不是数值，Number.isFinite一律返回false。
+        console.log(Number.isFinite('foo'));//false
+        console.log(Number.isFinite('15'));//false
+        console.log(Number.isFinite(true));//false
+        
+
+        //Number.isNaN()用来检查一个值是否为NaN。
+        console.log(Number.isNaN(NaN));//true
+        console.log(Number.isNaN(15));//false
+        console.log(Number.isNaN('15'));//false
+        console.log(Number.isNaN(true));//false
+        console.log(Number.isNaN(9/NaN));//true
+        console.log(Number.isNaN('true'/0));//true
+        console.log(Number.isNaN('true'/'true'));//true
+        console.log(Number.isNaN(false/true));//false     fasle/true =>0 
+        console.log(Number.isNaN(true/false));//fasle    true/fasle=>Infinity
+        // 如果参数类型不是NaN，Number.isNaN一律返回false。
+        // 它们与传统的全局方法isFinite()和isNaN()的区别在于，传统方法先调用Number()将非数值的值转为数值，
+        // 再进行判断，而这两个新方法只对数值有效，Number.isFinite()对于非数值一律返回false, 
+        // Number.isNaN()只有对于NaN才返回true，非NaN一律返回false。
+        
+        //传统的isFinite()和Number.isNaN()
+        // isFinite()
+        console.log(isFinite(25));//true
+        console.log(isFinite("25"));//true
+        // Number.isFinite()
+        console.log(Number.isFinite(25));//true
+        console.log(Number.isFinite("25"));//false
+        //isNaN()
+        console.log(isNaN(NaN));//true
+        console.log(isNaN("NaN"));//true
+        // Number.isNaN()
+        console.log(Number.isNaN(NaN));//true
+        console.log(Number.isNaN("NaN"));//false
+        console.log(Number.isNaN(1));//false
+        
+        
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        //不允许重复声明(不能被重复声明页不能重复声明别人)
+
+        function func(){
+            let a =10;
+            var a = 9;
+        }
+        func()//Identifier 'a' has already been declared 变量a已经被声明
+
+        function func(){
+            let a =10;
+            let a = 9;
+        }
+        func()//Identifier 'a' has already been declared 变量a已经被声明
+
+
+
+        function fun(arg){
+            let arg
+        }
+        fun()//Identifier 'arg' has already been declared
+
+        function fun(arg){
+            {
+                let arg
+            }
+        }
+        fun()//不报错,因为重新声明arg的作用域和函数作用域不是同一个
+
+
+    </script>
+</body>
+
+</html>
