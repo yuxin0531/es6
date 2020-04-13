@@ -11,89 +11,89 @@
     <script>
         // 嵌套的箭头函数 
         // 箭头函数内部，还可以再使用箭头函数。下面是一个 ES5 语法的多重嵌套函数。
-        // function insert(value) {
-        //     return {
-        //         into: function (array) {
-        //             return {
-        //                 after: function (afterValue) {
-        //                     array.splice(array.indexOf(afterValue) + 1, 0, value);
-        //                 // splice() 方法用于添加或删除数组中的元素。
-        //                     // 注意：这种方法会改变原始数组。
-        //                     // array.splice(index,howmany,item1,.....,itemX)
-        //                     // index 必需。规定从何处添加/删除元素。该参数是开始插入和（或）删除的数组元素的下标，必须是数字。
-        //                     // howmany 可选。规定应该删除多少元素。必须是数字，但可以是 "0"。
-        //                     // 如果未规定此参数，则删除从 index 开始到原数组结尾的所有元素。
-        //                     // item1, ..., itemX 可选。要添加到数组的新元素
-        //                     // 如果从 arrayObject 中删除了元素，则返回的是含有被删除的元素的数组。
-        //                     // 例子:
-        //                     // var fruits = ["Banana", "Orange", "Apple", "Mango"];
-        //                     // fruits.splice(2, 1, "Lemon", "Kiwi");
-        //                     // 结果：Banana,Orange,Lemon,Kiwi,Mango
+        function insert(value) {
+            return {
+                into: function (array) {
+                    return {
+                        after: function (afterValue) {
+                            array.splice(array.indexOf(afterValue) + 1, 0, value);
+                        // splice() 方法用于添加或删除数组中的元素。
+                            // 注意：这种方法会改变原始数组。
+                            // array.splice(index,howmany,item1,.....,itemX)
+                            // index 必需。规定从何处添加/删除元素。该参数是开始插入和（或）删除的数组元素的下标，必须是数字。
+                            // howmany 可选。规定应该删除多少元素。必须是数字，但可以是 "0"。
+                            // 如果未规定此参数，则删除从 index 开始到原数组结尾的所有元素。
+                            // item1, ..., itemX 可选。要添加到数组的新元素
+                            // 如果从 arrayObject 中删除了元素，则返回的是含有被删除的元素的数组。
+                            // 例子:
+                            // var fruits = ["Banana", "Orange", "Apple", "Mango"];
+                            // fruits.splice(2, 1, "Lemon", "Kiwi");
+                            // 结果：Banana,Orange,Lemon,Kiwi,Mango
 
-        //                 // indexOf() 方法可返回某个指定的字符串值在字符串中首次出现的位置。
-        //                     // 如果没有找到匹配的字符串则返回 -1
-        //                     // 注意： indexOf() 方法区分大小写。
+                        // indexOf() 方法可返回某个指定的字符串值在字符串中首次出现的位置。
+                            // 如果没有找到匹配的字符串则返回 -1
+                            // 注意： indexOf() 方法区分大小写。
 
-        //                 // 类似方法 lastIndexOf() 
-        //                     // 方法可返回一个指定的字符串值最后出现的位置，如果指定第二个参数 start，则在一个字符串中的指定位置从后向前搜索。
-        //                     // 注意： 该方法将从后向前检索字符串，但返回是从起始位置(0) 开始计算子字符串最后出现的位置。 看它是否含有字符串。
-        //                     // 开始检索的位置在字符串的 start 处或字符串的结尾（没有指定 start 时）。
-        //                     // 如果没有找到匹配字符串则返回 -1 。
-        //                     // 注意：lastIndexOf() 方法是区分大小写的！
-        //                     // string.lastIndexOf(searchvalue,start)
-        //                     // searchvalue 必需。规定需检索的字符串值。
-        //                     // start 可选的整数参数。规定在字符串中开始检索的位置。它的合法取值是 0 到 stringObject.length - 1。
-        //                     // 如省略该参数，则将从字符串的最后一个字符处开始检索。
-        //                     // 例子:
-        //                     // var str = "I am from runoob，welcome to runoob site.";
-        //                     // var n = str.lastIndexOf("runoob");
-        //                     // 结果:28
-        //                     // var str="I am from runoob，welcome to runoob site.";
-        //                     // var n=str.lastIndexOf("runoob", 9);这里的9是从开始的索引到第9的索引,然后在0-9这个索引区间向前检测,返回索引
-        //                     // 结果:-1
-        //                     return array;
-        //                 }
-        //             }
-        //         }
-        //     }
-        // }
-        // console.log(insert(2).into([1, 3]).after(1));//[1,2,3]
+                        // 类似方法 lastIndexOf() 
+                            // 方法可返回一个指定的字符串值最后出现的位置，如果指定第二个参数 start，则在一个字符串中的指定位置从后向前搜索。
+                            // 注意： 该方法将从后向前检索字符串，但返回是从起始位置(0) 开始计算子字符串最后出现的位置。 看它是否含有字符串。
+                            // 开始检索的位置在字符串的 start 处或字符串的结尾（没有指定 start 时）。
+                            // 如果没有找到匹配字符串则返回 -1 。
+                            // 注意：lastIndexOf() 方法是区分大小写的！
+                            // string.lastIndexOf(searchvalue,start)
+                            // searchvalue 必需。规定需检索的字符串值。
+                            // start 可选的整数参数。规定在字符串中开始检索的位置。它的合法取值是 0 到 stringObject.length - 1。
+                            // 如省略该参数，则将从字符串的最后一个字符处开始检索。
+                            // 例子:
+                            // var str = "I am from runoob，welcome to runoob site.";
+                            // var n = str.lastIndexOf("runoob");
+                            // 结果:28
+                            // var str="I am from runoob，welcome to runoob site.";
+                            // var n=str.lastIndexOf("runoob", 9);这里的9是从开始的索引到第9的索引,然后在0-9这个索引区间向前检测,返回索引
+                            // 结果:-1
+                            return array;
+                        }
+                    }
+                }
+            }
+        }
+        console.log(insert(2).into([1, 3]).after(1));//[1,2,3]
 
         // 上面这个函数,可以使用箭头函数改写
-        // let insert = value => ({
-        //     into: array => ({
-        //         after: afterValue => {
-        //             array.splice(array.indexOf(afterValue) + 1, 0, value)
-        //             return array
-        //         }
-        //     })
-        // });
-        // console.log(insert(2).into([1, 3]).after(1));//[1,2,3]
+        let insert = value => ({
+            into: array => ({
+                after: afterValue => {
+                    array.splice(array.indexOf(afterValue) + 1, 0, value)
+                    return array
+                }
+            })
+        });
+        console.log(insert(2).into([1, 3]).after(1));//[1,2,3]
 
         // !!!下面是一个部署管道机制（pipeline）的例子，即前一个函数的输出是后一个函数的输入。
-        // const pipeline = (...funcs) =>
-        //     val => {
-        //         console.log(funcs);//[a => a + 1,a => a * 2]
-        //         console.log(val);//5
-        //         funcs.reduce((a, b) => {
-        //             console.log(a);//a => a + 1
-        //             console.log(b);//a => a * 2
-        //             console.log(val);//5
-        //             b(a)//(a + 1)*2=2a+2这样相当于(a+1)是初始值,2为传进来数组的值,然后把初始值5传入(a+1)得到6,然后再乘2得出12
-        //         }, val)//val=5
-        //     }; //5 => funcs.reduce((a,b)=>b(a),5)
-        // // reduce() 方法接收一个函数作为累加器，数组中的每个值（从左到右）开始缩减，最终计算为一个值。
-        // // reduce() 可以作为一个高阶函数，用于函数的 compose。
-        // // 注意: reduce() 对于空数组是不会执行回调函数的。
-        // // 语法:array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
-        // // total必须 初始值, 或者计算结束后的返回值。
-        // // currentValue必需 当前元素 currentIndex可选 当前元素的索引
-        // // arr可选 当前元素所属的数组对象。
-        // // initialValue 可选。传递给函数的初始值
-        // const plus1 = a => a + 1;
-        // const mult2 = a => a * 2;
-        // const addTheMult = pipeline(plus1, mult2);//a+1 a*2
-        // console.log(addTheMult(5));//12 addTheMult(5)这里是调用函数pipeline返回的函数传传5,也就是将val=5传入
+        const pipeline = (...funcs) =>
+            val => {
+                console.log(funcs);//[a => a + 1,a => a * 2]
+                console.log(val);//5
+                funcs.reduce((a, b) => {
+                    console.log(a);//a => a + 1
+                    console.log(b);//a => a * 2
+                    console.log(val);//5
+                    b(a)//(a + 1)*2=2a+2这样相当于(a+1)是初始值,2为传进来数组的值,然后把初始值5传入(a+1)得到6,然后再乘2得出12
+                }, val)//val=5
+            }; //5 => funcs.reduce((a,b)=>b(a),5)
+        // reduce() 方法接收一个函数作为累加器，数组中的每个值（从左到右）开始缩减，最终计算为一个值。
+        // reduce() 可以作为一个高阶函数，用于函数的 compose。
+        // 注意: reduce() 对于空数组是不会执行回调函数的。
+        // 语法:array.reduce(function(total, currentValue, currentIndex, arr), initialValue)
+        // total必须 初始值, 或者计算结束后的返回值。
+        // currentValue必需 当前元素 currentIndex可选 当前元素的索引
+        // arr可选 当前元素所属的数组对象。
+        // initialValue 可选。传递给函数的初始值
+        const plus1 = a => a + 1;
+        const mult2 = a => a * 2;
+        const addTheMult = pipeline(plus1, mult2);//a+1 a*2
+        console.log(addTheMult(5));//12 addTheMult(5)这里是调用函数pipeline返回的函数传传5,也就是将val=5传入
 
         // 与上面的等价
 
@@ -105,7 +105,7 @@
 
         // 箭头函数还有一个功能，就是可以很方便地改写 λ 演算。不懂
         // λ演算的写法
-        fix = λf.(λx.f(λv.x(x)(v)))(λx.f(λv.x(x)(v)))
+        // fix = λf.(λx.f(λv.x(x)(v)))(λx.f(λv.x(x)(v)))
 
         // ES6的写法
         var fix = f => (x => f(v => x(x)(v)))

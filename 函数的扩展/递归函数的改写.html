@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 递归函数的改写
+        // 尾递归的实现，往往需要改写递归函数，确保最后一步只调用自身。
+        // 做到这一点的方法，就是把所有用到的内部变量改写成函数的参数。
+        // 比如尾调用的例子，阶乘函数 factorial 需要用到一个中间变量total，那就把这个中间变量改写成函数的参数。
+        // 这样做的缺点就是不太直观，第一眼很难看出来，为什么计算5的阶乘，需要传入两个参数5和1？
+
+        // 两个方法可以解决这个问题。方法一是在尾递归函数之外，再提供一个正常形式的函数。
+        // function factorial(n) {
+        //     if (n === 1) return 1;
+        //     return n * factorial(n - 1);
+        //     // 5*24
+        //     // 4*6
+        //     // 3*2
+        //     // 2*1
+        // }
+        // // 等同于 //其中间变量就为 n * factorial(n - 1);
+        // function tailFactorial(n, total) {
+        //     if (n === 1) return total;
+        //     return tailFactorial(n - 1, n * total)
+
+        // }
+
+        // function factorial(n) {
+        //     return tailFactorial(n, 1)
+        // }
+        // factorial(5)//120
+
+        // 上面代码通过一个正常形式的阶乘函数factorial，调用尾递归函数tailFactorial，看起来就正常多了。
+        // 函数式编程有一个概念，叫做柯里化（currying），意思是将多参数的函数转换成单参数的形式。这里也可以使用柯里化。
+        // 不懂
+        function currying(fn, n) {
+            return function (m) {
+                // console.log(m);
+                
+                // console.log(this);
+                return fn.call(this, m, n)//window ,5,1,这里可以直接写成fn(m,n)也一样得到120
+            };
+        }
+
+        function tailFactorial(n, total) {
+            if (n === 1) return total;
+            return tailFactorial(n - 1, n * total);
+        }
+        const factorial = currying(tailFactorial, 1);
+
+        console.log(factorial(5));//120
+        // currying(tailFactorial, 1)调用currying函数返回了function (m) {return fn.call(this, m, n)},factorial(5)其实就是调用function (m) {return fn.call(this, m, n)}函数传入5,里面的
+        //fn 就是 currying传入的tailFactorial，fn.call(this, m, n)就是调用tailFactorial函数并传入5,1，然后执行if (n === 1) return total;return tailFactorial(n - 1, n * total);进行递归
+        // 上面代码通过柯里化，将尾递归函数tailFactorial变为只接受一个参数的factorial。
+
+        // 第二种方法就简单多了，就是采用 ES6 的函数默认值。
+        // function factorial(n, total = 1) {
+        //     if (n === 1) return total;
+        //     return factorial(n - 1, n * total)
+        // }
+        // console.log(factorial(5));//120
+        // 上面代码中，参数total有默认值1，所以调用时不用提供这个值。
+
+        // 总结一下，递归本质上是一种循环操作。纯粹的函数式编程语言没有循环操作命令，所有的循环都用递归实现，
+        // 这就是为什么尾递归对这些语言极其重要。对于其他支持“尾调用优化”的语言（比如 Lua，ES6），
+        // 只需要知道循环可以用递归代替，而一旦使用递归，就最好使用尾递归。
+    </script>
+</body>
+
+</html>

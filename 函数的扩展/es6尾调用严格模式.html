@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 严格模式
+        // ES6 的尾调用优化只在严格模式下开启，正常模式是无效的。
+
+        // 这是因为在正常模式下，函数内部有两个变量，可以跟踪函数的调用栈。
+
+        // func.arguments：返回调用时函数的参数。
+        // func.caller：返回调用当前函数的那个函数。
+        // 尾调用优化发生时，函数的调用栈会改写，因此上面两个变量就会失真。严格模式禁用这两个变量，所以尾调用模式仅在严格模式下生效。
+      
+        function restricted(a,c,d){
+            'use strict'
+          console.log(restricted.caller);
+             //返回调用当前函数的那个函数。 报错
+          console.log(restricted.arguments);
+             // 返回调用时函数的参数 //报错
+        }
+        function a (){
+            console.log(restricted(1,2));
+        }
+        a()//在非严格模式下 打印出来的分别是函数a 和伪数组[1,2]
+        //在严格模式下报错,显示caller', 'callee', and 'arguments' properties may not be accessed on strict 
+        // mode functions or the arguments objects for calls to them at restricted
+        // 调用方'、'被调用方'和'参数'属性在严格模式函数或对其调用的参数对象上不能被访问在受限制的
+    </script>
+</body>
+
+</html>

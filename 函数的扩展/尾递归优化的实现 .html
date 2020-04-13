@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 尾递归优化的实现
+
+        // 尾递归优化只在严格模式下生效，那么正常模式下，或者那些不支持该功能的环境中，有没有办法也使用尾递归优化呢？
+        // 回答是可以的，就是自己实现尾递归优化。
+        // 它的原理非常简单。尾递归之所以需要优化，原因是调用栈太多，造成溢出，那么只要减少调用栈，就不会溢出。
+        // 怎么做可以减少调用栈呢？就是采用“循环”换掉“递归”。
+        // 下面是一个正常的递归函数。
+        // function sum(x, y) {
+        //     if (y > 0) {
+        //         return sum(x + 1, y - 1);
+        //     } else {
+        //         return x;
+        //     }
+        // }
+
+        // console.log(sum(1, 100000));//报错 Maximum call stack size exceeded at sum 最大调用堆栈大小超过总和
+
+        // 上面代码中，sum是一个递归函数，参数x是需要累加的值，参数y控制递归次数。一旦指定sum递归 100000 次，就会报错，提示超出调用栈的最大次数。
+
+        // 蹦床函数（trampoline）可以将递归执行转为循环执行
+        // 蹦床函数（trampoline）就是将 递归执行 转为 循环执行。
+        // 执行的都是同样的步骤，只是反复执行，就好像在蹦床，跳上去，掉下来，在跳上去…
+        // function trampoline(f) {
+        //     while (f && f instanceof Function) { //这里应该是用来判断是不是函数
+        //         //instanceof 判断一个引用是否属于某构造函数,可用来检测一个实例是否属于某种类型与typeof类似
+        //         // 参考链接:https://www.jianshu.com/p/6c99d3678283
+        //         // https://www.imooc.com/article/69870
+        //         console.log(2);
+        //         f = f();
+        //         console.log(4);
+        //     }
+        //     console.log(0);
+        //     return f;
+
+        // }
+        // // 上面就是蹦床函数的一个实现，它接受一个函数f作为参数。只要f执行后返回一个函数，就继续执行。
+        // // 注意，这里是返回一个函数，然后执行该函数，而不是函数里面调用函数，这样就避免了递归执行，从而就消除了调用栈过大的问题。
+
+        // // 然后，要做的就是将原来的递归函数，改写为每一步返回另一个函数。
+        // function sum(x, y) {
+        //     console.log(1);
+        //     console.log(this);
+        //     if (y > 0) { 
+        //         console.log(3);
+        //         return sum.bind(null, x + 1, y - 1);
+        //         // sum.bind(null, x + 1, y - 1)这里不是把this 绑定成null,只是使用bind的预设了sum的参数,null的意思这是说这个改变this参数是空的
+        //         // 参考:https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
+        //     } else {
+        //         return x;
+        //     }
+        // }
+        // //!!!这里利用了null 的功能预设了x+1,和y-1两个参数,其实在sum函数中并没有调用sum函数,只是为他预设了x+1,和y-1两个参数然后返回到trampoline函数,
+        // //在trampoline函数中调用,然后在赋值给变量f,再判断f,在调用f函数,在预设x+1,和y-1两个参数然后返回到trampoline函数
+        // // 上面代码中，sum函数的每次执行，都会返回自身的另一个版本。
+        // // 现在，使用蹦床函数执行sum，就不会发生调用栈溢出。
+        // console.log(trampoline(sum(1, 100000)));// 100001
+
+        // 蹦床函数并不是真正的尾递归优化，下面的实现才是。不懂
+        function tco(f) {
+            var value;
+            var active = false;
+            var accumulated = [];
+            console.log(2);
+            return function accumulator() {
+                console.log(3);
+
+                accumulated.push(arguments);
+                if (!active) {
+                    active = true;
+                    while (accumulated.length) {
+                        value = f.apply(this, accumulated.shift());
+                        // shift() 方法用于把数组的第一个元素从其中删除，并返回第一个元素的值。
+                        // 注意： 此方法改变数组的长度！
+                        // 提示: 移除数组末尾的元素可以使用 pop() 方法。
+                        // arrayObject.shift()
+                        // var fruits = ["Banana", "Orange", "Apple", "Mango"];
+                        // fruits.shift()
+                        // 结果:Orange,Apple,Mango
+                    }
+                    active = false;
+                    return value;
+                }
+            };
+        }
+
+        var sum = tco(function (x, y) {
+            console.log(1);
+            if (y > 0) {
+                return sum(x + 1, y - 1)
+            } else {
+                return x
+            }
+        }); //return accumulator(b)
+
+        console.log(sum(1, 100000));//accumulator(b(1,10000))
+        // 上面代码中，tco函数是尾递归优化的实现，它的奥妙就在于状态变量active。默认情况下，这个变量是不激活的。
+        // 一旦进入尾递归优化的过程，这个变量就激活了。然后，每一轮递归sum返回的都是undefined，所以就避免了递归执行；
+        // 而accumulated数组存放每一轮sum执行的参数，总是有值的，这就保证了accumulator函数内部的while循环总是会执行。
+        // 这样就很巧妙地将“递归”改成了“循环”，而后一轮的参数会取代前一轮的参数，保证了调用栈只有一层。
+    </script>
+</body>
+
+</html>
