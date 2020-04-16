@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // forEach() 方法对数组的每个元素执行一次给定的函数。
+        // 注意: forEach() 对于空数组是不会执行回调函数的。
+        // 语法:arr.forEach(callback(currentValue [, index [, array]])[, thisArg])
+        // 参数:callback 为数组中每个元素执行的函数，该函数接收一至三个参数：
+        // currentValue
+        // 数组中正在处理的当前元素。
+        // index 可选
+        // 数组中正在处理的当前元素的索引。
+        // array 可选
+        // forEach() 方法正在操作的数组。
+        // thisArg 可选
+        // 可选参数。当执行回调函数 callback 时，用作 this 的值。
+        // 返回值 undefined
+        const array1 = ['a', 'b', 'c'];
+        array1.forEach(element => console.log(element));// 'a' 'b' 'c'
+        // <p>点击按钮计算数组所有元素相加的总和。</p>
+        // <button onclick="numbers.forEach(myFunction)">点我</button>
+
+        // <p>数组元素总和：<span id="demo"></span></p>
+
+        // <script>
+        // var sum = 0;
+        // var numbers = [65, 44, 12, 4];
+
+        // function myFunction(item) {
+        // sum += item;
+        // demo.innerHTML = sum;
+        // }
+        // 参考:https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+    </script>
+</body>
+
+</html>

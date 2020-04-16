@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // every() 方法测试一个数组内的所有元素是否都能通过某个指定函数的测试。它返回一个布尔值。
+        // 注意：若收到一个空数组，此方法在一切情况下都会返回 true。
+        const isBelowThreshold = (currentValue) => currentValue < 40;
+        const array1 = [1, 30, 39, 29, 10, 13];
+        console.log(array1.every(isBelowThreshold));//true
+        // 语法:arr.every(callback[, thisArg])
+        // 参数:
+        // callback
+        // 用来测试每个元素的函数，它可以接收三个参数：
+        // element
+        // 用于测试的当前值。
+        // index可选
+        // 用于测试的当前值的索引。
+        // array可选
+        // 调用 every 的当前数组。
+        // thisArg
+        // 执行 callback 时使用的 this 值。
+        // 返回值:如果回调函数的每一次返回都为 truthy 值，返回 true ，否则返回 false
+
+
+
+        // 下例检测数组中的所有元素是否都大于 10。
+        function isBigEnough(element,index,array) {
+            return element >= 10;
+        }
+        console.log([12,5,8,130,44].every(isBigEnough));//false
+        console.log([12,54,18,130,44].every(isBigEnough));//true
+        // 箭头函数
+        console.log([12,5,8,130,44]).every(x=>x>=10);//false
+        console.log([12,54,18,130,44].every(x=> x >=10));//true
+        
+        
+    </script>
+</body>
+
+</html>

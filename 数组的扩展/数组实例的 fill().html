@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 数组实例的 fill()
+        // fill方法使用给定值，填充一个数组。
+        console.log(['a', 'b', 'c'].fill(7)); // [7, 7, 7] 数组有将被全部被抹去
+        console.log(new Array(3).fill(7)); // [7, 7, 7] 没有将填充'
+        // 上面代码表明，fill方法用于空数组的初始化非常方便。数组中已有的元素，会被全部抹去。
+
+        // fill方法还可以接受第二个和第三个参数，用于指定填充的起始位置和结束位置。
+        console.log(['a', 'b', 'c'].fill(7, 1, 2));// ['a', 7, 'c'] 
+        console.log(new Array(3).fill(7, 1, 2)); // [empty, 7, empty]
+        // 从开始索引开始替换,开始成员会被替换,如果规定结束位置索引,结束位置索引不会被替换.如果结束位置没规定会到数组结束,而且最后一个数组成员会被替换
+        // 上面代码表示，fill方法从 1 号位开始，向原数组填充 7，到 2 号位之前结束。
+
+        // 注意，如果填充的类型为对象，那么被赋值的是同一个内存地址的对象，而不是深拷贝对象。
+        let arr = new Array(3).fill({name:"Mike"});
+        console.log(arr);//[{name:'Mike'},{name:'Mike'},{name:'Mike'}]
+        arr[0].name = "Ben";//赋值的是同一个对象的地址.所有修改对象的值,数组的全部成员的值都将被修改
+        console.log(arr);//[{name:'Ben'},{name:'Ben'},{name:'Ben'}]
+        
+        let arr = new Array(3).fill([]);
+        console.log(arr);//[[],[],[]]
+        arr[0].push(5); //数组和对象一样保存的是相同数组的3个地址,所有改一个全部都被修改
+        console.log(arr);//[[5],[5],[5]]
+    </script>
+</body>
+
+</html>

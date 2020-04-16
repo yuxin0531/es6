@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // find() 方法返回数组中满足提供的测试函数的第一个元素的值。否则返回 undefined。
+        // 语法:arr.find(callback[, thisArg])
+        const array1 = [5, 12, 8, 130, 44];
+        const found = array1.find(element => element > 10);
+        console.log(found);//12
+
+        // find() 方法返回通过测试（函数内判断）的数组的第一个元素的值。
+        // find() 方法为数组中的每个元素都调用一次函数执行：
+        // 当数组中的元素在测试条件时返回 true 时, find() 返回符合条件的元素，之后的值不会再调用执行函数。
+        // 如果没有符合条件的元素返回 undefined
+        // 注意: find() 对于空数组，函数是不会执行的。
+        // 注意: find() 并没有改变数组的原始值。
+
+        // 参数:callback
+        // 在数组每一项上执行的函数，接收 3 个参数：
+        // element
+        // 当前遍历到的元素。
+        // index可选
+        // 当前遍历到的索引。
+        // array可选
+        // 数组本身。
+        // thisArg可选
+        // 执行回调时用作this 的对象。
+
+        // 返回值:数组中第一个满足所提供测试函数的元素的值，否则返回 undefined。
+
+
+        // 用对象的属性查找数组里的对象
+        var inventory = [
+            { name: 'apples', quantity: 2 },
+            { name: 'bananas', quantity: 0 },
+            { name: 'cherries', quantity: 5 }
+        ];
+        function findCherries(fruit) {
+            return fruit.name === 'cherries';
+        }
+        console.log(inventory.find(findCherries)); // { name: 'cherries', quantity: 5 }
+
+
+        // 寻找数组中的质数
+        function isPrime(element, index, array) {
+            var start = 2;
+            while (start <= Math.sqrt(element)) {
+                if (element % start++ < 1) {
+                    return false;
+                }
+            }
+            return element > 1;
+        }
+
+        console.log([4, 6, 8, 12].find(isPrime)); // undefined, not found
+        console.log([4, 5, 8, 12].find(isPrime)); // 5
+
+        // 参考:https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/find
+        // https://www.runoob.com/jsref/jsref-find.html
+    </script>
+</body>
+
+</html>

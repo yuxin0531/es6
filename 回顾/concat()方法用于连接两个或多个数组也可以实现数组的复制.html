@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // concat() 方法用于连接两个或多个字符串或者数组。
+        // 该方法没有改变原有字符串或数组，但是会返回连接两个或多个字符串新字符串或数组
+        // 语法:string.concat(string1, string2, ..., stringX)
+        // string1, string2, ..., stringX必需。将被连接为一个字符串的一个或多个字符串对象。
+        // 数组:
+        var a = [1, 2, 3];
+        console.log(a.concat(4,5));//[1,2,3,4,5] 如果为空返回一个原新数组
+        console.log(a.concat([7,8,9]));
+        // 字符串:
+        var str1 = "Hello ";
+        var str2 = "world!";
+        var n = str1.concat(str2);
+        console.log(n);
+        
+    </script>
+</body>
+
+</html>

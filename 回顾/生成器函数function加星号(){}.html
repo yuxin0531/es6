@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // function*(){}
+        // function* 这种声明方式(function关键字后跟一个星号）会定义一个生成器函数 (generator function)，它返回一个  Generator  对象。
+        // 特点：
+        // 1、函数生成器特点是函数名前面有一个‘*’
+        // 2、通过调用函数生成一个控制器
+        // 3、调用next()方法开始执行函数
+        // 4、遇到yield函数将暂停
+        // 5、再次调用next()继续执行函数
+        // function* fn(){
+        //     console.log(1);
+        //     // 暂停
+        //     yield;
+        //     // 调用next方法继续执行
+        //     console.log(2);
+        // }
+
+        // var iter = fn();
+        // // iter.next()//1
+        // // iter.next(); //2
+        // // console.log(iter.next());//1 {value: undefined, done: false}
+        // console.log(fn().next().value);//1 undefined
+
+
+        // function* fn() {
+        //     console.log('11111');
+        //     var a = yield 'hello';
+        //     console.log(a);
+        //     console.log('22222');
+        //     var b =yield;
+        //     console.log(b);
+        //     console.log('33333');
+        // }
+
+        // var iter = fn();
+        // var res = iter.next();//11111
+        // console.log(res.value);//hello
+        // iter.next(2);//22222 //这里consol.log(a)就会等于2在其他iter.next(2)传入2,consol.log(a)都是undefined
+        // iter.next(3);//33333
+
+        // function fn(a,b){
+        //     console.log(a,b);
+        //     setTimeout(function(a,b){
+        //         let data ={code:'000000',msg:'成功'};
+        //         it.next(data);
+        //     },5000)
+        // }
+
+        // function * g(){
+        //     var text = yield fn(3,5);
+        //     console.log(text);
+            
+        // }
+
+        // var it =g();
+        // it.next()
+
+        function *genFunc(){
+            var result = yield 1
+            console.log(result);
+        }
+
+        var gen = genFunc()
+        gen.next() // 此时generator内部执行到 yield 1 并暂停，但还未对result赋值！
+        // 即使异步也可以！
+        setTimeout(function(){
+            gen.next(123) // 给result赋值并继续执行，输出: 123
+        },1000)
+
+        // 参考:https://blog.csdn.net/u010250943/article/details/78931976
+        // https://blog.csdn.net/baidu_41921865/article/details/88579763
+        // https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Statements/function*
+    </script>
+</body>
+
+</html>

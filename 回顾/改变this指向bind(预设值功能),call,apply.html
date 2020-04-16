@@ -31,10 +31,22 @@
         // 参考链接:https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/bind
 
         // call和apply作用是一样的，都是为了改变某个函数运行时的上下文（context）而存在的，换句话说，就是为了改变函数体内部this的指向。
-            // call,apply例子 call() 方法可接受参数：
-            // 下面例子使用person的方法来调用person1的属性
-            // call() 方法分别接受参数。
-            // apply() 方法接受数组形式的参数。
+        // call,apply例子 call() 方法可接受参数：
+        // 下面例子使用person的方法来调用person1的属性
+        // call() 方法分别接受参数。
+        // function.call(thisArg, arg1, arg2, ...)
+        // apply() 方法接受数组形式的参数。
+        // 用 apply 将数组添加到另一个数组
+        // var array = ['a', 'b'];
+        // var elements = [0, 1, 2];
+        // array.push.apply(array, elements);
+        // console.info(array); // ["a", "b", 0, 1, 2]
+        // 使用apply接收一个数组让函数接收一个数组参数
+        // function f(x,y,z){
+        //    console.log(x+y+z);//3
+        // }
+        // var args = [0,1,2];
+        // f.apply(null,args);
     </script>
 </body>
 

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Function.caller：如果一个函数f是在全局作用域内被调用的,则f.caller为null,相反,如果一个函数是在另外一个函数作用域内被调用的,则f.caller指向调用它的那个函数.
+        // 也就是说当一个函数在另个一函数中被调用的话,在被调用的函数中使用arguments.caller,其会返回调用它的函数.如果全局调用则会返回null
+        // 该属性的常用形式arguments.callee.caller替代了被废弃的 arguments.caller.
+        // function whoCalled() {
+        //     if (whoCalled.caller == null)
+        //         console.log('I was called from the global scope.');
+        //     else
+        //         console.log(whoCalled.caller + ' called me!');
+        // }
+
+        function outer() {
+            inner();
+        }
+        function inner() {
+            if (inner.caller == null) { //值为null，在全局作用域下调用
+                console.log("我是在全局环境下调用的");
+            } else {
+                console.log(inner.caller + "调用了我");
+            }
+        }
+        inner();
+        outer();
+
+        //  参考:https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/caller
+
+    </script>
+</body>
+
+</html>

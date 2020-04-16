@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // map() 方法
+        // map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。
+        // map() 方法按照原始数组元素顺序依次处理元素。
+        // 注意： map() 不会对空数组进行检测。
+        // 注意： map() 不会改变原始数组。
+        // 语法:array.map(function(currentValue,index,arr), thisValue)
+        // function(currentValue, index,arr)  必须。函数，数组中的每个元素都会执行这个函数函数参数
+        // currentValue 必须。当前元素的值
+        // index 可选。当前元素的索引值
+        // arr 可选。当前元素属于的数组对象
+        // thisValue 可选。对象作为该执行回调时使用，传递给函数，用作 "this" 的值。如果省略了 thisValue，或者传入 null、undefined，那么回调函数的 this 为全局对象。
+        // 与forEach的不同点:
+        // forEach返回值是undefined map是处理后的新数组
+        //  <p>点击按钮将数组中的每个元素乘于输入框指定的值，并返回新数组。</p>
+        // <p>最小年龄: <input type="number" id="multiplyWith" value="10"></p>
+        // <button onclick="myFunction()">点我</button>
+        // <p>新数组: <span id="demo"></span></p>
+        // <script>
+        // var numbers = [65, 44, 12, 4];
+        // function multiplyArrayElement(num) {
+        //     return num * document.getElementById("multiplyWith").value;
+        // }
+        // function myFunction() {
+        //    console.log( numbers.map(multiplyArrayElement))
+        // }
+                // 参考：https://www.cnblogs.com/mhtss/p/11334034.html
+    </script>
+</body>
+
+</html>
