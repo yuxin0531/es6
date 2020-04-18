@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // delete 操作符用于删除对象的某个属性；如果没有指向这个属性的引用，那它最终会被释放。
+        // 语法: delete expression
+        // expression 的计算结果应该是某个属性的引用，例如：
+        // delete object.property 对象要删除的某个属性
+        // delete object['property']
+        // 参数: object 对象的名称，或计算结果为对象的表达式。
+        //       property 要删除的属性。
+        // 返回值: 对于所有情况都是true，除非属性是一个自己不可配置的属性，在这种情况下，非严格模式返回 false。
+        // 异常 在严格模式下，如果是属性是一个自己不可配置的属性，会抛出Global_objects/SyntaxError。
+        // !!!!原理:与通常的看法不同，delete操作符与直接释放内存无关。内存管理 通过断开引用来间接完成的，查看内存管理页可了解详情。
+        // delete 操作符会从某个对象上移除指定属性。成功删除的时候回返回 true，否则返回 false。但是，以下情况需要重点考虑：
+
+        // 如果你试图删除的属性不存在，那么delete将不会起任何作用，但仍会返回true
+        // 如果对象的原型链上有一个与待删除属性同名的属性，那么删除属性之后，对象会使用原型链上的那个属性（也就是说，delete操作只会在自身的属性上起作用）
+        // 任何使用 var 声明的属性不能从全局作用域或函数的作用域中删除。
+        // 这样的话，delete操作不能删除任何在全局作用域中的函数（无论这个函数是来自于函数声明或函数表达式）
+        // 除了在全局作用域中的函数不能被删除，在对象(object)中的函数是能够用delete操作删除的。
+        // 任何用let或const声明的属性不能够从它被声明的作用域中删除。
+        // 不可设置的(Non - configurable)属性不能被移除。这意味着像Math, Array, Object内置对象的属性以及使用Object.defineProperty()方法
+        // 设置为不可设置的属性不能被删除。
+        // const Employee = {
+        //     firstname: 'John',
+        //     lastname: 'Doe'
+        // }
+        // console.log(Employee.firstname);
+        // // expected output: "John"
+        // delete Employee.firstname;
+        // console.log(Employee.firstname);
+        // // expected output: undefined
+
+
+        // 下面的代码块给出了一个简单的例子：
+        var Employee = {
+            age: 28,
+            name: 'abc',
+            designation: 'developer'
+        }
+
+        console.log(delete Employee.name); //returns true
+        console.log(delete Employee.age); //returns true
+
+        // 当试着删除一个不存在的属性时
+        // 同样会返回true
+        console.log(delete Employee.salary);//returns true
+
+
+        // 不可配置属性
+        // 当一个属性被设置为不可设置，delete操作将不会有任何效果，并且会返回false。在严格模式下会抛出语法错误（SyntaxError）。
+        var Employee = {};
+        Object.defineProperty(Employee, 'name', { configurable: false });
+        console.log(delete Employee.name);//return false
+
+        // var, let以及const创建的不可设置的属性不能被delete操作删除。
+
+        var nameOther = 'XYZ';
+        // 通过以下方法获取全局属性:
+        Object.getOwnPropertyDescriptor('window', nameOther)
+        // 输出: Object {value: "XYZ", 
+        //                  writable: true, 
+        //                  enumerable: true,
+        //                  configurable: false}
+
+        // 因为“nameOther”使用var关键词添加，
+        // 它被设置为不可设置（non-configurable）
+        delete nameOther;   // return false
+        // 在严格模式下，这样的操作会抛出异常。
+        // 参考:https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/delete
+    </script>
+</body>
+
+</html>

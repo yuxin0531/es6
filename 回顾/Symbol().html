@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Symbol（js的第七种数据类型）
+        // 应用场景：1.Symbol()-->解决属性名的冲突,因为传入对象属性时,同样的Symbol不相等;
+        // 解释: 什么是冲突呢？当多人合作编码的时候，经常会出现你往对象上加了一个某某属性（比如 $ ），他人正好也想到了这个名称，
+        // 当你们同时用了这个名称作为属性，代码之间就会发生冲突，互相覆盖。而用 symbol，即使都用了相同的描述，也不是同一个 symbol。
+        // 2.Symbol.for()-- > 共享Symbol, 因为返回值得不一样, keyFor()用来查看它的描述
+        // 特点:
+        // 1.Symbol('key') !== Symbol('key')  //true,返回不同
+        // 2.Symbol("know").name = 1; // TypeError,只读
+        // 3.for...in 、 Object.keys(obj) 、Object.getOwnPropertyNames(obj)会忽略Symbol, 即自身不可枚举
+        // 4.不能用obj.prop的形式访问
+    // 参考:https://www.cnblogs.com/sunshineForFuture/p/10432440.html
+    // https://www.jianshu.com/p/60f556df8685
+    </script>
+</body>
+
+</html>
