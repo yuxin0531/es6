@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Object.defineProperty()
+        // Object.defineProperty() 方法会直接在一个对象上定义一个新属性，或者修改一个对象的现有属性，并返回此对象。
+        // !!!备注：应当直接在 Object 构造器对象上调用此方法，而不是在任意一个 Object 类型的实例上调用。
+        // 语法: Object.defineProperty(obj, prop, descriptor)
+        // 参数: obj要定义属性的对象。 prop 要定义或修改的属性的名称或Symbol。 descriptor 要定义或修改的属性描述符。
+        // 返回值: 被传递给函数修改后的这个对象。
+        // 在ES6中，由于 Symbol类型的特殊性，用Symbol类型的值来做对象的key与常规的定义或修改不同，而Object.defineProperty 是定义key为Symbol的属性的方法之一。
+        // 该方法允许精确地添加或修改对象的属性。通过赋值操作添加的普通属性是可枚举的，
+        // 在枚举对象属性时会被枚举到（for...in 或 Object.keys 方法），可以改变这些属性的值，也可以删除这些属性。
+        // 这个方法允许修改默认的额外选项（或配置）。默认情况下，使用 Object.defineProperty() 添加的属性值是不可修改（immutable）的。
+        // 对象里目前存在的属性描述符有两种主要形式：数据描述符和存取描述符。数据描述符是一个具有值的属性，该值可以是可写的，也可以是不可写的。
+        // 存取描述符是由 getter 函数和 setter 函数所描述的属性。一个描述符只能是这两者其中之一；不能同时是两者。
+        // 这两种描述符都是对象。它们共享以下可选键值（默认值是指在使用 Object.defineProperty() 定义属性时的默认值）：
+        // configurable 默认为 false。enumerable 默认为 false。 value 默认为 undefined。 writable 默认为 false get 默认为 undefined。 set 默认为 undefined。
+        // 上面的属性具体内容查看参考链接
+        const object1 = {};
+        Object.defineProperty(object1, 'property1', {
+            value: 42,
+            // writable:false
+        });
+        console.log(object1);
+        object1.property1 = 77;
+        // 在严格模式下抛出错误
+        console.log(object1.property1);
+        // expected output: 42
+        // 参考:https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty
+    </script>
+</body>
+
+</html>

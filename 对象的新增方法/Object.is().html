@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // Object.is()
+        // ES5 比较两个值是否相等，只有两个运算符：相等运算符（==）和严格相等运算符（===）。
+        // 它们都有缺点，前者会自动转换数据类型，后者的NaN不等于自身，以及 + 0等于 - 0。
+        // JavaScript 缺乏一种运算，在所有环境中，只要两个值是一样的，它们就应该相等。
+        // ES6 提出“Same - value equality”（同值相等）算法，用来解决这个问题。
+        // !!!Object.is就是部署这个算法的新方法。它用来比较两个值是否严格相等，与严格比较运算符（===）的行为基本一致。不同之处只有两个：一是+0不等于-0，二是NaN等于自身。
+        console.log(Object.is('foo', 'foo'));//true
+        console.log(Object.is({}, {}));//false
+
+        // 不同之处只有两个：一是+0不等于-0，二是NaN等于自身。
+        console.log(+0 === -0); //true
+        console.log(NaN === NaN);//false
+
+        console.log(Object.is(+0, -0));//false
+        console.log(Object.is(NaN, NaN));//true
+
+        // ES5 可以通过下面的代码，部署Object.is。
+        Object.defineProperty(Object, 'is', {
+            value: function (x, y) {
+                if (x === y) {
+                    // 针对+0 不等于 -0的情况
+                    return x !== 0 || 1 / x === 1 / y;
+                    //只要传输两个相等的值与0有关,则 (0!==0 fasle,-0==0 fasle) 就会计算 1/0 ===1/-0 false (1/0 Infinity,1/-0 -Infinity)则返回结果false
+                    // 如果与0无关,则x!== 0必定成立,返回true
+                }
+                // 针对NaN的情况
+                return x !== x && y !== y;
+                // '=='这里不等于本身的只会是NaN(有点奇怪,我感觉只需要x !== x,因为js里面不等于本身的只会是NaN)
+            },
+            configurableL: true,//可配置的
+            enumerable: false,//不可枚举
+            writable: true,//可写的
+        });
+
+        
+    </script>
+</body>
+
+</html>
