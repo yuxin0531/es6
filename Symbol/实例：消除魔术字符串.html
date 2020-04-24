@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 实例：消除魔术字符串
+        // 魔术字符串指的是，在代码之中多次出现、与代码形成强耦合的某一个具体的字符串或者数值。风格良好的代码，应该尽量消除魔术字符串，改由含义清晰的变量代替。
+        function getArea(shape, options) {
+            let area = 0;
+            switch (shape) {
+                case 'Triangle'://魔术字符串
+                    area = .5 * options.width * options.height;
+                    break;
+                // ...more code...
+            }
+            return area;
+        }
+
+        getArea('Triangle',{width:100,height:100});//魔术字符串
+        // 上面代码中，字符串Triangle就是一个魔术字符串。它多次出现，与代码形成“强耦合”，不利于将来的修改和维护。
+
+        // 常用的消除魔术字符串的方法，就是把它写成一个变量。
+        const shapeType = {
+            //triangle:'Triangle' 
+            triangle:Symbol()//(最优)
+        };
+
+        function getArea(shape,options){
+            let area = 0;
+            switch (shape){
+                case shapeType.triangle:
+                // console.log(shape===shapeType.triangle) //true
+                    area = .5*options.width *options.height;
+                    break;
+            }
+            return area;
+        }
+
+        
+        console.log(getArea(shapeType.triangle,{width:100,height:100}));
+        
+        // 上面代码中，我们把Triangle写成shapeType对象的triangle属性，这样就消除了强耦合。
+        // 如果仔细分析，可以发现shapeType.triangle等于哪个值并不重要，只要确保不会跟其他shapeType属性的值冲突即可。因此，这里就很适合改用 Symbol 值。
+        // const shapeType = {triangle:Symbol()};
+        // 原因:从上面看这个代码传入的值是triangle:'Triangle',判断是否进入计算的值也是triangle:'Triangle',所以从这个代码代码上看就是不管shapeType.triangle是什么值,
+        // 都要进入这个计算,所有只需要shapeType.triangle是什么都不重要,只要其不要与其他值冲突即可,所有在这里我们只需要让这个值是独一无二的即可,所以triangle:Symbol()和合适
+        // 上面代码中，除了将shapeType.triangle的值设为一个 Symbol，其他地方都不用修改。
+    </script>
+</body>
+
+</html>

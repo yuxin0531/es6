@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 内置的 Symbol 值
+        // 除了定义自己使用的 Symbol 值以外，ES6 还提供了 11 个内置的 Symbol 值，指向语言内部使用的方法。
+        // Symbol.hasInstance 
+        // 对象的Symbol.hasInstance属性，指向一个内部方法。当其他对象使用instanceof运算符，判断是否为该对象的实例时，
+        // 会调用这个方法。比如，foo instanceof Foo在语言内部，实际调用的是Foo[Symbol.hasInstance](foo)。
+        // instanceof运算符用来判断一个构造函数的prototype属性所指向的对象是否存在另外一个要检测对象的原型链上
+        class MyClass {
+            [Symbol.hasInstance](foo){
+                return foo instanceof Array;
+            }
+        }
+        [1,2,3] instanceof new MyClass() // true
+        // 上面代码中，MyClass是一个类，new MyClass()会返回一个实例。
+        // 该实例的Symbol.hasInstance方法，会在进行instanceof运算时自动调用，判断左侧的运算子是否为Array的实例。
+
+        // 下面是另一个例子
+        class Even {
+            static [Symbol.hasInstance](obj){
+                return Number(obj) %2 === 0; //Number()把对象的值转成数字
+            }
+        }
+
+        // 等同于
+        const Even = {
+            [Symbol.hasInstance](obj) {
+                return Number(obj)%2 === 0;
+            }
+        };
+        1 instanceof Even //false
+        2 instanceof Even //true
+        12345 instanceof Even //false
+    </script>
+</body>
+</html>

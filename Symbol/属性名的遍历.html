@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 属性名的遍历
+        // Symbol 作为属性名，遍历对象的时候，该属性不会出现在for...in、for...of循环中，也不会被Object.keys()、Object.getOwnPropertyNames()、JSON.stringify()返回。
+        // 但是，它也不是私有属性，有一个Object.getOwnPropertySymbols()方法，可以获取指定对象的所有 Symbol 属性名。该方法返回一个数组，成员是当前对象的所有用作属性名的 Symbol 值。
+        // Object.getOwnPropertySymbols(obj);
+        // 参数:需要获取 Symbol 属性名的对象
+        // 返回值:该对象的 Symbol 属性名组成的数组
+        // 获取指定对象的所有 Symbol 属性名
+        const obj = {};
+        let a = Symbol('a');
+        let b = Symbol('b');
+
+        obj[a] = 'Hello';
+        obj[b] = 'World';
+
+        const objectSymbols = Object.getOwnPropertySymbols(obj);
+        console.log(objectSymbols);//[Symbol(a), Symbol(b)]
+
+        // 上面代码是Object.getOwnPropertySymbols()方法的示例，可以获取所有 Symbol 属性名。
+        // 下面是另一个例子，Object.getOwnPropertySymbols()方法与for...in循环、Object.getOwnPropertyNames方法进行对比的例子。
+
+        const obj = {};
+        const foo = Symbol('foo');
+        obj[foo] = 'bar';
+        for (let i in obj){
+            console.log(i);//无输出
+            //for循环不会返回Symbol属性
+        }
+
+        console.log(Object.getOwnPropertyNames(obj));//[] 获取不到
+        console.log(Object.getOwnPropertySymbols(obj));//[Symbol(foo)]
+        // 上面的代码中,使用for...in循环和Object.getOwnPropertyNames()方法都得不到 Symbol 键名，需要使用Object.getOwnPropertySymbols()方法。
+
+        // 另一个新的 API，Reflect.ownKeys()方法可以返回所有类型的键名，包括常规键名和 Symbol 键名。
+        let obj = {
+            [Symbol('my_key')]:1,
+            enum:2,
+            nonEnum:3
+        };
+
+        console.log(Reflect.ownKeys(obj));//["enum", "nonEnum", Symbol(my_key)] 好像[Symbol('my_key')]:1,会固定会排在其他正常属性后面最后一个
+        const c = Symbol('c')
+            const obj ={ 
+                a:1,
+                n:2,
+            }
+            obj[c]=2
+            obj['o']=5
+            const a = Symbol('a')
+            obj[a] = 3
+            console.log(Reflect.ownKeys(obj));//  ["a", "n", "o", Symbol(c), Symbol(a)]好像 Symbol()固定在正常属性后面
+
+        let size = Symbol('size');//看不懂
+
+        class Collection {
+            constructor() {
+                this[size] = 0;
+            }
+
+            add(item) {
+                this[this[size]] = item;
+                this[size]++;
+            }
+
+            static sizeOf(instance) {
+                return instance[size];
+            }
+        }
+
+        let x = new Collection();
+        console.log(x); //Collection {Symbol(size): 0}
+        
+        console.log(Collection.sizeOf(x));//0
+        
+        x.add('foo');
+        console.log(Collection.sizeOf(x));//1
+        
+        console.log(Object.keys(x));//['0']
+        console.log(Object.getOwnPropertyNames(x));//['0']
+        console.log(Object.getOwnPropertySymbols(x));//[Symbol(szie)]
+
+        // 上面代码中，对象x的size属性是一个 Symbol 值，所以Object.keys(x)、Object.getOwnPropertyNames(x)都无法获取它。这就造成了一种非私有的内部方法的效果。
+
+    </script>
+</body>
+
+</html>
