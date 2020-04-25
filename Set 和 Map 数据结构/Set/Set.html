@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <script>
+        //Set基本用法
+        // ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。
+        // Set本身是一个构造函数，用来生成 Set 数据结构。
+        const s = new Set(); 
+        [2,3,5,4,5,2,2].forEach(x=>s.add(x));//数组,对象不能使用add() new Set()可以使用add()可以在里面直接写数字
+
+        for(let i of s){
+            console.log(i);//2 3 5 4
+        }
+        // 上面代码通过add()方法向 Set 结构加入成员，结果表明 Set 结构不会添加重复的值。
+        // Set函数可以接受一个数组（或者具有 iterable 接口的其他数据结构）作为参数，用来初始化。
+
+        // 例一
+        const set = new Set([1,2,3,4,4]);
+        console.log([...set]);//[1,2,3,4]
+        console.log(set);//Set(4) {1, 2, 3, 4}我感觉类似是一个伪数组
+
+             
+        // 例子二
+        const items = new Set([1,2,3,4,5,5,5,5])
+        console.log(items.size);//5 //size后面没有括号,只能检测new Set的长度,数组对象都是不行的
+        
+        // 例子三
+        const set = new Set(document.querySelectorAll('div'));
+        console.log(set.size);//10
+        
+        // 类似于
+        const set = new Set();
+        document
+            .querySelectorAll('div')
+            .forEach(div => set.add(div));
+        console.log(set.size);//10
+        // 上面代码中，例一和例二都是Set函数接受数组作为参数，例三是接受类似数组的对象作为参数。
+        // 上面代码也展示了一种去除数组重复成员的方法。
+
+        // 去除数组的重复成员
+        const array = [1,2,3,4,5,5,4,3,2,1]
+        console.log([...new Set(array)]);//[1,2,3,4,5]
+
+        // 上面的方法也可以用于,去除字符串里面的重复字符
+        const string = 'abcddcba'
+        console.log([...new Set(string)].join(''));//abcd
+        // 向 Set 加入值的时候，不会发生类型转换，所以5和"5"是两个不同的值。Set 内部判断两个值是否不同，使用的算法叫做“Same-value-zero equality”，
+        // 它类似于精确相等运算符（===），主要的区别是向 Set 加入值时认为NaN等于自身，而精确相等运算符认为NaN不等于自身。
+
+        let set  = new Set();
+        let a = NaN;
+        let b = NaN;
+        console.log(set.add(a));
+        console.log(set.add(b));
+        console.log(set);
+        // 上面代码向 Set 实例添加了两次NaN，但是只会加入一个。这表明，在 Set 内部，两个NaN是相等的。
+
+        // !!!另外，两个对象总是不相等的。
+
+        let set = new Set();
+        const a = {a:1}
+        const b = a
+        console.log(b);
+        console.log(a);
+        set.add(a);
+        console.log(set.size);//1
+        set.add(b);
+        console.log(set.size);//1
+        console.log(a ===b);
+        // 用的是用一个引用的对象只能添加是相等的,多次加入也只能显示一个
+
+        // 这样的两个对象是不相等的
+        let set = new Set();
+        set.add({});
+        console.log(set.size);//1
+        set.add({});
+        console.log(set.size);//2
+        // 官方说另外，两个对象总是不相等的,不太对啊,好像是不同的引用地址才是相等的
+        // 上面代码表示，由于两个空对象不相等，所以它们被视为两个值。
+    </script>
+</body>
+</html>

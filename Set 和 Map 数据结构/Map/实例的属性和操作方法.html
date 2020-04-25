@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 实例的属性和操作方法
+        // Map 结构的实例有以下属性和操作方法。
+
+
+        // （1）size 属性
+        const map = new Map();
+        map.set('foo',true);
+        map.set('bar',false);
+        console.log(map.siez);//2
+
+
+        // （2）Map.prototype.set(key, value)
+        // set方法设置键名key对应的键值为value，然后返回整个 Map 结构。如果key已经有值，则键值会被更新，否则就新生成该键。
+        const m = new Map();
+        m.set('edition',6);      // 键是字符串
+
+        m.set(262,'standard');  // 键是数值
+        console.log(m);//Map(2) {"edition" => 6, 262 => "standard"}
+        
+        m.set(undefined,'nah');   // 键是undefined
+        console.log(m.get(undefined));//'nah'
+        // !!!set方法返回的是当前的Map对象，因此可以采用链式写法。
+
+        let map = new Map()
+        .set(1,'a')
+        .set(2,'b')
+        .set(3,'c');
+        console.log(map);//Map(3) {1 => "a", 2 => "b", 3 => "c"}
+        
+
+        // （3）Map.prototype.get(key)
+        // get方法读取key对应的键值，如果找不到key，返回undefined。
+        const m = new Map();
+
+        const hello = function(){console.log('hello');};
+        m.set(hello,'Hello ES6!')// 键是函数
+        console.log(m);//Map(1) {ƒ => "Hello ES6!"}
+        console.log(m.get(hello));// Hello ES6!
+        
+
+        // （4）Map.prototype.has(key)
+        // has方法返回一个布尔值，表示某个键是否在当前 Map 对象之中。
+        const m = new Map();
+
+        m.set('edition',5);
+        m.set(262,'standard');
+        m.set(undefined,'nah');
+
+        console.log(m.has('edition'));//true
+        console.log(m.has('years'));//false
+        console.log(m.has(262));//true
+        console.log(m.has(undefined));//true
+
+
+        // （5）Map.prototype.delete(key)
+        // delete方法删除某个键，返回true。如果删除失败，返回false。
+        const m = new Map();
+        m.set(undefined,'nah');
+        console.log(m.has(undefined));//true
+        m.delete(undefined)
+        console.log(m.has(undefined));//false
+        
+
+        // （6）Map.prototype.clear()
+        // clear方法清除所有成员，没有返回值。
+        let map = new Map();
+        map.set('foo',true)
+        map.set('bar',false);
+        console.log(map);//Map(2) {"foo" => true, "bar" => false}
+        console.log(map.size);//2
+        console.log(map.clear());
+        console.log(map.size);//0
+        
+    </script>
+</body>
+</html>

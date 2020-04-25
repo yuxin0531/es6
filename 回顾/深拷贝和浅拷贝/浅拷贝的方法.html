@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 浅拷贝
+        // 1.通过Object.assign()的浅拷贝情况(Object.assign()有两种情况,只有一层是深拷贝多层是浅拷贝)
+        // 当出现下面这种情况为浅拷贝.也就是说当对象中有多级属性,从二级属性后里面的值就是浅拷贝
+        let obj2 = {
+            a: { a: 1 }
+        }
+        let obj3 = Object.assign({}, obj2)
+        console.log(obj2);//{a:{a:1}}
+        console.log(obj3);//{a:{a:1}}
+        console.log(obj2.a.a === obj3.a.a);//true
+        obj2.a.a = 2
+        console.log(obj2);//{a:{a:2}}
+        console.log(obj3);//{a:{a:2}}
+        console.log(obj2.a.a === obj3.a.a);//true
+
+        // 2.直接赋值
+        const obj = {
+            a:1,
+            b:2,
+        }
+
+        const obj1 = obj
+        console.log(obj);//{a: 1, b: 2}
+        console.log(obj1);//{a: 1, b: 2}
+        console.log(obj.a === obj1.a);//true
+        obj.a=2
+        console.log(obj);//{a: 2, b: 2}
+        console.log(obj1);//{a: 2, b: 2}
+        console.log(obj.a === obj1.a);//true
+
+        // 3.解构赋值浅拷贝情况(有两种情况,一层为深拷贝,多层为深拷贝)
+        let obj = { a: { b: 1 } };
+        let { ...x } = obj;
+        obj.a.b = 2;
+        console.log(x.a.b);//2
+        // 解构赋值的拷贝是浅拷贝，即如果一个键的值是复合类型的值（数组、对象、函数）、那么解构赋值拷贝的是这个值的引用，而不是这个值的副本。
+    </script>
+</body>
+</html>

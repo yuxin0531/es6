@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 对象深拷贝
+        // 1.使用递归的方式实现深拷贝
+        function deepClone(obj) {
+            let objClone = Array.isArray(obj) ? [] : {};
+            if (obj && typeof obj === 'object') {
+                for (let key in obj) {
+                    if (obj[key] && typeof obj[key] === 'object') {
+                        objClone[key] = deepClone(obj[key]);
+                    } else {
+                        objClone[key] = obj[key]
+                    }
+                }
+            }
+            return objClone;
+        }
+        // 2. 通过JSON对象实现深拷贝 
+        function deepClone2(obj) {
+            let _obj = JSON.stringify(obj),
+            return JSON.parse(_obj);
+        }
+        // 　注意： 无法实现对象中方法的深拷贝
+        console.log(JSON.stringify({name1:function(){},age:12}));//"{"age":12}"
+        // // 参考:https://www.cnblogs.com/hyns/p/12405328.html
+
+        // 3.通过Object.assign()深拷贝拷贝情况(Object.assign()有两种情况,只有一层是深拷贝多层是浅拷贝)
+        let obj = {
+            name: 'hhhhh',
+            a: function () {
+                console.log('a');
+                return 'a'
+            }
+        }
+        let obj1 = Object.assign({}, obj);
+        console.log(obj.name === obj1.name);//true
+        obj.name = 'cccc'
+        console.log(obj);//{name: "cccc", a: ƒ}
+        console.log(obj1);//{name: "hhhhh", a: ƒ}
+        console.log(obj.name === obj1.name);//false
+
+        console.log(obj.a === obj1.a);//true
+        obj1.a = function () {
+            console.log('b');
+            return 'b'
+        }
+        console.log(obj);
+        console.log(obj1);
+        console.log(obj.name === obj1.name);//false
+        // 上面这种情况是深拷贝,也就是说当对象只有一级属性为深拷贝
+
+        // 4.解构赋值的深拷贝情况(有两种情况,一层为深拷贝,多层为深拷贝)
+        let z = { a: 3, b: 4 };
+        let n = { ...z };
+        console.log(n);//{a:3,b:4}
+        z.a = 0
+        console.log(z);//{a: 0, b: 4}
+        console.log(n);//{a: 3, b: 4}
+    </script>
+</body>
+
+</html>
